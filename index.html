@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="GiftHub - Roblox Player Analyzer" />
+  <meta name="description" content="GiftHub - Roblox Player Analyzer. Consulta pública de perfis Roblox com interface clara, segura e compatível." />
   <meta name="theme-color" content="#f8fafc" />
+  <meta name="color-scheme" content="light dark" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
     base-uri 'self';
@@ -17,72 +19,111 @@
     object-src 'none';
   ">
   <title>GiftHub | Roblox Player Analyzer</title>
+
+  <link rel="preconnect" href="https://users.roblox.com" />
+  <link rel="preconnect" href="https://thumbnails.roblox.com" />
   <link rel="stylesheet" href="style.css" />
+  <script src="siteconfig.js" defer></script>
   <script src="script.js" defer></script>
 </head>
+
 <body>
+  <noscript>
+    <div style="padding:16px;margin:16px;border:1px solid #d0d7de;border-radius:16px;font-family:system-ui;background:#fff;color:#111827;">
+      Este site precisa de JavaScript ativado para funcionar corretamente.
+    </div>
+  </noscript>
+
   <div class="page">
-    <header class="topbar">
-      <div class="brand">
-        <div class="brand__logo">GH</div>
+    <header class="topbar" role="banner">
+      <div class="brand" aria-label="GiftHub">
+        <div class="brand__logo" aria-hidden="true">GH</div>
         <div>
           <h1>GiftHub</h1>
           <p>Roblox Player Analyzer</p>
         </div>
       </div>
 
-      <button class="theme-btn" id="themeBtn" type="button">🌙 Tema</button>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Alternar tema">
+        <span id="themeBtnText">🌙 Tema</span>
+      </button>
     </header>
 
-    <main class="shell">
-      <section class="hero card">
+    <main class="shell" role="main">
+      <section class="hero card" aria-labelledby="heroTitle">
         <div class="hero__center">
-          <h2>GiftHub</h2>
+          <h2 id="heroTitle">GiftHub</h2>
           <p>Roblox Player Analyzer</p>
         </div>
 
-        <form class="search" id="searchForm">
+        <form class="search" id="searchForm" autocomplete="off" novalidate>
+          <label class="sr-only" for="usernameInput">Digite o usuário Roblox</label>
           <input
             id="usernameInput"
+            name="username"
             type="text"
             placeholder="Digite o usuário..."
             maxlength="20"
+            inputmode="text"
             autocomplete="off"
             spellcheck="false"
+            aria-describedby="searchHelp"
           />
-          <button type="submit">Pesquisar 🔍</button>
+          <button type="submit" id="searchBtn">Pesquisar 🔍</button>
+          <small class="hint" id="searchHelp">
+            Use apenas letras, números e underline. Entre 3 e 20 caracteres.
+          </small>
         </form>
 
-        <div class="predefined">
+        <div class="predefined" aria-label="Nomes predefinidos">
           <span>Nomes predefinidos:</span>
           <button type="button" class="chip" data-user="StarStealthPlayz2015">StarStealthPlayz2015</button>
           <button type="button" class="chip" data-user="Roblox">Roblox</button>
         </div>
       </section>
 
-      <section class="grid">
-        <article class="card profile-card">
+      <section class="grid" aria-label="Resultados">
+        <article class="card profile-card" aria-live="polite">
           <div class="profile-card__top">
-            <div class="section-tag">Avatar</div>
-            <img src="assets/logo-blue.jpg" alt="Logo Roblox" class="corner-logo" />
+            <span class="section-tag">Avatar</span>
+            <img
+              src="logo-blue.jpg"
+              alt="Logo Roblox"
+              class="corner-logo"
+              loading="eager"
+              decoding="async"
+            />
           </div>
 
           <div id="emptyState" class="empty">
-            <div class="empty__icon">◎</div>
+            <div class="empty__icon" aria-hidden="true">◎</div>
             <h3>Nenhum jogador carregado</h3>
             <p>Pesquise um usuário para ver as informações públicas aqui.</p>
           </div>
 
           <div id="profileView" class="profile hidden">
             <div class="profile__row">
-              <img id="avatarImg" class="avatar" alt="Avatar do jogador" />
+              <img
+                id="avatarImg"
+                class="avatar"
+                alt="Avatar do jogador"
+                loading="lazy"
+                decoding="async"
+              />
               <div class="profile__meta">
                 <h3 id="displayName">—</h3>
                 <p id="usernameLine">@username</p>
+
+                <div class="profile__buttons">
+                  <button type="button" class="btn-secondary" id="copyBtn">Copiar nome</button>
+                  <a id="openProfileBtn" class="btn-secondary" href="#" target="_blank" rel="noreferrer noopener">
+                    Abrir perfil
+                  </a>
+                </div>
               </div>
             </div>
 
-            <div class="score-box">
+            <div class="score-box" aria-label="Pontuação">
               <strong>Pontuação: <span id="scoreValue">92</span>/100</strong>
             </div>
 
@@ -103,43 +144,43 @@
           </div>
         </article>
 
-        <aside class="card tabs-card">
-          <div class="tabs">
-            <button class="tab active" data-tab="info" type="button">Informações</button>
-            <button class="tab" data-tab="security" type="button">Segurança</button>
-            <button class="tab" data-tab="badges" type="button">Badges</button>
-            <button class="tab" data-tab="description" type="button">Descrição</button>
-            <button class="tab" data-tab="followers" type="button">Seguidores</button>
-            <button class="tab" data-tab="friends" type="button">Amizades</button>
+        <aside class="card tabs-card" aria-label="Informações adicionais">
+          <div class="tabs" role="tablist" aria-label="Seções do perfil">
+            <button class="tab active" data-tab="info" type="button" role="tab" aria-selected="true">Informações</button>
+            <button class="tab" data-tab="security" type="button" role="tab" aria-selected="false">Segurança</button>
+            <button class="tab" data-tab="badges" type="button" role="tab" aria-selected="false">Badges</button>
+            <button class="tab" data-tab="description" type="button" role="tab" aria-selected="false">Descrição</button>
+            <button class="tab" data-tab="followers" type="button" role="tab" aria-selected="false">Seguidores</button>
+            <button class="tab" data-tab="friends" type="button" role="tab" aria-selected="false">Amizades</button>
           </div>
 
           <div class="tab-panels">
-            <section class="tab-panel active" id="info">
+            <section class="tab-panel active" id="info" role="tabpanel">
               <h4>Informações</h4>
               <p id="infoText">Pesquise um jogador para ver os detalhes públicos.</p>
             </section>
 
-            <section class="tab-panel" id="security">
+            <section class="tab-panel" id="security" role="tabpanel">
               <h4>Segurança</h4>
               <p>Entrada validada, interface segura e sem uso de HTML inseguro.</p>
             </section>
 
-            <section class="tab-panel" id="badges">
+            <section class="tab-panel" id="badges" role="tabpanel">
               <h4>Badges</h4>
               <p id="badgesText">Sem dados carregados.</p>
             </section>
 
-            <section class="tab-panel" id="description">
+            <section class="tab-panel" id="description" role="tabpanel">
               <h4>Descrição</h4>
               <p id="descriptionText">Sem descrição disponível.</p>
             </section>
 
-            <section class="tab-panel" id="followers">
+            <section class="tab-panel" id="followers" role="tabpanel">
               <h4>Seguidores</h4>
               <p id="followersText">Sem dados carregados.</p>
             </section>
 
-            <section class="tab-panel" id="friends">
+            <section class="tab-panel" id="friends" role="tabpanel">
               <h4>Amizades</h4>
               <p id="friendsText">Sem dados carregados.</p>
             </section>
