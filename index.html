@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="GiftHub - Roblox Player Analyzer" />
+  <meta name="theme-color" content="#f8fafc" />
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    img-src 'self' data: https:;
+    style-src 'self';
+    script-src 'self';
+    connect-src https://users.roblox.com https://thumbnails.roblox.com;
+    object-src 'none';
+  ">
+  <title>GiftHub | Roblox Player Analyzer</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand__logo">GH</div>
+        <div>
+          <h1>GiftHub</h1>
+          <p>Roblox Player Analyzer</p>
+        </div>
+      </div>
+
+      <button class="theme-btn" id="themeBtn" type="button">🌙 Tema</button>
+    </header>
+
+    <main class="shell">
+      <section class="hero card">
+        <div class="hero__center">
+          <h2>GiftHub</h2>
+          <p>Roblox Player Analyzer</p>
+        </div>
+
+        <form class="search" id="searchForm">
+          <input
+            id="usernameInput"
+            type="text"
+            placeholder="Digite o usuário..."
+            maxlength="20"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button type="submit">Pesquisar 🔍</button>
+        </form>
+
+        <div class="predefined">
+          <span>Nomes predefinidos:</span>
+          <button type="button" class="chip" data-user="StarStealthPlayz2015">StarStealthPlayz2015</button>
+          <button type="button" class="chip" data-user="Roblox">Roblox</button>
+        </div>
+      </section>
+
+      <section class="grid">
+        <article class="card profile-card">
+          <div class="profile-card__top">
+            <div class="section-tag">Avatar</div>
+            <img src="assets/logo-blue.jpg" alt="Logo Roblox" class="corner-logo" />
+          </div>
+
+          <div id="emptyState" class="empty">
+            <div class="empty__icon">◎</div>
+            <h3>Nenhum jogador carregado</h3>
+            <p>Pesquise um usuário para ver as informações públicas aqui.</p>
+          </div>
+
+          <div id="profileView" class="profile hidden">
+            <div class="profile__row">
+              <img id="avatarImg" class="avatar" alt="Avatar do jogador" />
+              <div class="profile__meta">
+                <h3 id="displayName">—</h3>
+                <p id="usernameLine">@username</p>
+              </div>
+            </div>
+
+            <div class="score-box">
+              <strong>Pontuação: <span id="scoreValue">92</span>/100</strong>
+            </div>
+
+            <div class="stats">
+              <div class="stat">
+                <span>Conta criada:</span>
+                <strong id="createdValue">—</strong>
+              </div>
+              <div class="stat">
+                <span>Tempo de conta:</span>
+                <strong id="accountAgeValue">—</strong>
+              </div>
+              <div class="stat">
+                <span>User ID:</span>
+                <strong id="userIdValue">—</strong>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <aside class="card tabs-card">
+          <div class="tabs">
+            <button class="tab active" data-tab="info" type="button">Informações</button>
+            <button class="tab" data-tab="security" type="button">Segurança</button>
+            <button class="tab" data-tab="badges" type="button">Badges</button>
+            <button class="tab" data-tab="description" type="button">Descrição</button>
+            <button class="tab" data-tab="followers" type="button">Seguidores</button>
+            <button class="tab" data-tab="friends" type="button">Amizades</button>
+          </div>
+
+          <div class="tab-panels">
+            <section class="tab-panel active" id="info">
+              <h4>Informações</h4>
+              <p id="infoText">Pesquise um jogador para ver os detalhes públicos.</p>
+            </section>
+
+            <section class="tab-panel" id="security">
+              <h4>Segurança</h4>
+              <p>Entrada validada, interface segura e sem uso de HTML inseguro.</p>
+            </section>
+
+            <section class="tab-panel" id="badges">
+              <h4>Badges</h4>
+              <p id="badgesText">Sem dados carregados.</p>
+            </section>
+
+            <section class="tab-panel" id="description">
+              <h4>Descrição</h4>
+              <p id="descriptionText">Sem descrição disponível.</p>
+            </section>
+
+            <section class="tab-panel" id="followers">
+              <h4>Seguidores</h4>
+              <p id="followersText">Sem dados carregados.</p>
+            </section>
+
+            <section class="tab-panel" id="friends">
+              <h4>Amizades</h4>
+              <p id="friendsText">Sem dados carregados.</p>
+            </section>
+          </div>
+        </aside>
+      </section>
+
+      <footer class="footer">
+        <p>Todos os diretos reservados</p>
+        <p>Copyright de star©</p>
+        <p>marca registrada star®</p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
